@@ -128,6 +128,7 @@ public class FXMLDocumentController {
                 for(Vertice v: cam3){
                     n+=v.nome+"-";
                 }
+                this.saida.setText(n);
                 break;
              default:
                  System.out.println("Erro");
