@@ -102,6 +102,32 @@ public class FXMLDocumentController {
     private String cityOne;
     private String cityTwo;
     
+    public void zerarVertices(){
+        for(Vertice v: ProjectIA.g.N){
+            v.cor="branco";
+        }
+    }
+    
+    public void getCaminho(){
+        ArrayList<Vertice> caminho = new ArrayList();
+        ArrayList<Vertice> caminho2 = new ArrayList();
+        switch(this.tBusca){
+            
+            case 1:
+                ArrayList<Vertice> cam = ProjectIA.buscaLargura(ProjectIA.g, ProjectIA.getVertice(this.cityOne), ProjectIA.getVertice(this.cityTwo), caminho);
+                System.out.println(this.Way(cam));
+                break;
+             case 2:
+               ArrayList<Vertice> cam2 = ProjectIA.buscaProfundidade(ProjectIA.g, ProjectIA.getVertice(this.cityOne), ProjectIA.getVertice(this.cityTwo), caminho2);
+                System.out.println(this.Way(cam2));
+                break;
+             case 3:
+                 //ProjectIA.aStart(g, vInicial, vFinal, path);
+                break;
+             default:
+                 System.out.println("Erro");
+        }
+    }
     
     public String Way(ArrayList<Vertice> cam){
         String n = "";
@@ -109,9 +135,11 @@ public class FXMLDocumentController {
             n+=v.nome+"-";
         }
         return n;
+        
     }
     
     public void setCity(String city){
+        System.out.println("setCity"+city);
         if(this.cityClick==1){
            this.cityOne=city;
         }else if(this.cityClick==2){
@@ -121,6 +149,7 @@ public class FXMLDocumentController {
     
     public void count(){
         this.cityClick+=1;
+        System.out.println("count"+this.cityClick);
         if(this.cityClick>=2){
             if(this.tBusca!=0){
                 this.calcular.setDisable(false);
@@ -150,10 +179,9 @@ public class FXMLDocumentController {
     }
     
     public void count2(){
-        if(this.cityClick>=2){
+        if(this.cityClick==2){
             if(this.tBusca!=0){
                 this.calcular.setDisable(false);
-                
             }
             this.oradea.setDisable(true);
             this.arad.setDisable(true);
@@ -247,25 +275,9 @@ public class FXMLDocumentController {
 
     @FXML
     void handleButtonAction(ActionEvent event) {
-        ArrayList<Vertice> caminho = new ArrayList();
-        switch(this.tBusca){
-            
-            case 1:
-                ArrayList<Vertice> cam = ProjectIA.buscaLargura(ProjectIA.g, ProjectIA.getVertice(cityOne), ProjectIA.getVertice(cityTwo), caminho);
-                System.out.println(this.Way(cam));
-                break;
-             case 2:
-                ArrayList<Vertice> cam2 = ProjectIA.buscaProfundidade(ProjectIA.g, ProjectIA.getVertice(cityOne), ProjectIA.getVertice(cityTwo), caminho);
-                System.out.println(this.Way(cam2));
-                break;
-             case 3:
-                 //ProjectIA.aStart(g, vInicial, vFinal, path);
-                break;
-             default:
-                 System.out.println("Erro");
-        }
+        this.getCaminho();
                 
-        
+        this.zerarVertices();
         this.cityClick=0;
         this.tBusca=0;
         this.calcular.setDisable(false);

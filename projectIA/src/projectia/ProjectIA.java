@@ -49,6 +49,7 @@ public class ProjectIA extends Application {
     public static ArrayList<Vertice> buscaProfundidade(Grafo g, Vertice vInicial,Vertice vFinal,ArrayList<Vertice> caminho){
         vInicial.cor="preto";
         caminho.add(vInicial);
+        System.out.println(vInicial.nome);
         for(Vertice v: g.N){
             if(vInicial.nome.equals(vFinal.nome)){
                 v.cor="preto";
