@@ -161,7 +161,92 @@ public class ProjectIA extends Application {
     }
     @Override
     public void start(Stage stage) throws Exception {
-           Grafo g = new Grafo();
+    	  Grafo g = new Grafo();
+
+        BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream("edges.csv")));
+        String linha = null;
+        ArrayList<Aresta> arestas = new ArrayList<Aresta>();
+
+
+        while ((linha = reader.readLine()) != null) {
+            String[] dadosUsuario = linha.split(",");
+
+            Vertice vgenericoA = new Vertice();
+            Vertice vgenericoB = new Vertice();
+
+            Aresta agenerico = new Aresta();
+            boolean tem=false;
+            boolean tem2=false;
+
+            for(Vertice v:vertices){
+                if(v.nome.equals(dadosUsuario[0])){
+                    tem = true;
+                    vgenericoA = v;
+                }
+                if(v.nome.equals( dadosUsuario[1])){
+                    vgenericoB = v;
+                    tem2=true;
+                }
+
+            }
+            if (!tem){
+                vgenericoA.nome= dadosUsuario[0];
+                vertices.add(vgenericoA);
+                g.N.add(vgenericoA);
+            }else{
+
+            }
+            if(!tem2) {
+                vgenericoB.nome= dadosUsuario[1];
+                vertices.add(vgenericoB);
+                g.N.add(vgenericoB);
+            }
+
+            agenerico.v1 = vgenericoA;
+            agenerico.v2 = vgenericoB;
+            agenerico.peso = Integer.parseInt(dadosUsuario[2]);
+
+            g.A.add(agenerico);
+        }
+        reader.close();
+
+        BufferedReader reader2 = new BufferedReader(new InputStreamReader(new FileInputStream("heuristics.csv")));
+        String linha2 = null;
+        int l=0;
+        while ((linha2 = reader2.readLine()) != null) {
+            String[] dadosUsuario = linha2.split(",");
+            for (int j = 0; j < dadosUsuario.length; j++) {
+                matriz[l][j] = dadosUsuario[j];
+            }
+            l++;
+        }
+
+        for(int tam=1;tam<21;tam++){
+            cidades.add(matriz[0][tam]);
+        }
+        System.out.println("-------------->Busca A*<--------------\n");
+
+        ArrayList<Vertice> caminho = new ArrayList();
+      ArrayList<Vertice> path = ProjetoIA.aStart(g,getVertice("Arad"),getVertice("Bucharest"),caminho);
+
+        for(Vertice v:path){
+
+            System.out.println(v.nome);
+        }
+
+
+
+        System.out.println("-------------->Busca largura<--------------\n");
+
+        ArrayList<Vertice> caminhoLargura = new ArrayList();
+
+        ArrayList<Vertice> vs = ProjetoIA.buscaProfundidade(g, getVertice("Arad"), getVertice("Bucharest"), caminhoLargura);
+
+        for(Vertice ll: vs){
+            System.out.println(ll.nome);
+        }
+
+        /*Grafo g = new Grafo();
        
        Vertice vC = new Vertice();
        vC.nome="c";
@@ -277,7 +362,7 @@ public class ProjectIA extends Application {
        Aresta mi = new Aresta();
        mi.v1 = m;
        mi.v2 = i;
-       g.A.add(mi);
+       g.A.add(mi);*/
        
        ArrayList<Vertice> caminho = new ArrayList();
        ArrayList<Vertice> Way = new ArrayList();
