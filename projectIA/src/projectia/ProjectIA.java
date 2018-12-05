@@ -74,6 +74,7 @@ public class ProjectIA extends Application {
     public static Float getDistance(Vertice a, Vertice b){
         int posA=1;
         int posB=1;
+
         for(int i=1;i<21;i++){
             if(matriz[0][i].equals(a.nome)){
                 posA = i;
@@ -88,14 +89,15 @@ public class ProjectIA extends Application {
                 break;
             }
         }
-        //int posB = cidades.indexOf(b.nome);
         if(matriz[posB][posA].equals("")){
             System.out.println("ERRO-> "+matriz[posB][posA]+" "+posB+" "+posA+" "+a.nome+" "+b.nome);
+        }else{
+            //return Float.parseFloat(matriz[posA][posB]);
         }
         return Float.parseFloat(matriz[posB][posA]);
     }
 
-    public static Vertice prox_no(Grafo g, Vertice atual, Vertice vfinal,ArrayList<Vertice> visitados){
+    public static Vertice prox_no(Grafo g, Vertice atual, Vertice vfinal, ArrayList<Vertice> visitados){
         if(visitados.isEmpty()){
             visitados.add(atual);
         }else{
@@ -120,10 +122,10 @@ public class ProjectIA extends Application {
                 }
             }else{
                 if( j.v2.nome.equals(atual.nome)){
-                    if(!visitados.contains(j.v2)) {
+                    if(!visitados.contains(j.v1)) {
                         vizinhos.add(j);
                         if((j.peso + getDistance(j.v1,vfinal)<f)){
-                            f = j.peso + getDistance(j.v2,vfinal);
+                            f = j.peso + getDistance(j.v1,vfinal);
                             vEscolhinho = j.v1;
                         }
                     }
@@ -138,6 +140,7 @@ public class ProjectIA extends Application {
         for(Vertice v:vertices ){
             if(v.nome.equals(cidade)){
                 retorno = v;
+                break;
             }
         }
         return retorno;
@@ -156,7 +159,6 @@ public class ProjectIA extends Application {
         return aStart(g,proximo,vFinal,path);
 
     }
-       
     @Override
     public void start(Stage stage) throws Exception {
            Grafo g = new Grafo();
