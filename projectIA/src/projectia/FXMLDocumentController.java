@@ -5,6 +5,7 @@
  */
 package projectia;
 
+import java.util.ArrayList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -102,11 +103,57 @@ public class FXMLDocumentController {
     private String cityTwo;
     
     
+    public String Way(ArrayList<Vertice> cam){
+        String n = "";
+        for(Vertice v: cam){
+            n+=v.nome+"-";
+        }
+        return n;
+    }
+    
+    public void setCity(String city){
+        if(this.cityClick==1){
+           this.cityOne=city;
+        }else if(this.cityClick==2){
+           this.cityTwo=city;
+        }
+    }
+    
     public void count(){
         this.cityClick+=1;
         if(this.cityClick>=2){
             if(this.tBusca!=0){
                 this.calcular.setDisable(false);
+                
+            }
+            this.oradea.setDisable(true);
+            this.arad.setDisable(true);
+            this.zerind.setDisable(true);
+            this.timisoara.setDisable(true);
+            this.sibiu.setDisable(true);
+            this.lugoj.setDisable(true);
+            this.mehadia.setDisable(true);
+            this.dobreta.setDisable(true);
+            this.fagaras.setDisable(true);
+            this.rimnicuVilcea.setDisable(true);
+            this.craiova.setDisable(true);
+            this.pitesti.setDisable(true);
+            this.bucharest.setDisable(true);
+            this.giurgiu.setDisable(true);
+            this.urziceni.setDisable(true);
+            this.neamt.setDisable(true);
+            this.lasi.setDisable(true);
+            this.vaslui.setDisable(true);
+            this.hirsova.setDisable(true);
+            this.eforie.setDisable(true);
+        }
+    }
+    
+    public void count2(){
+        if(this.cityClick>=2){
+            if(this.tBusca!=0){
+                this.calcular.setDisable(false);
+                
             }
             this.oradea.setDisable(true);
             this.arad.setDisable(true);
@@ -134,61 +181,91 @@ public class FXMLDocumentController {
   
     public void bProfundidadeVoid(ActionEvent event){
         
-        this.tBusca=1;
-        
-        count();
-    }
-    public void bLarguraVoid(ActionEvent event){
         this.tBusca=2;
         
-        count();
+        this.count2();
+        
+    }
+    public void bLarguraVoid(ActionEvent event){
+        this.tBusca=1;
+        
+        this.count2();
+        
         
     }
     public void bMelhorVoid(ActionEvent event){
         this.tBusca=3;
        
-        count();
+        this.count2();
+        
+        
     }
     
     
     
     @FXML
     void aradVoid(ActionEvent event) {
-       this.count();
+       this.count(); 
+       this.setCity("Arad");
     }
 
     @FXML
     void bucharestVoid(ActionEvent event) {
         this.count();
+        this.setCity("Bucharest");
     }
 
     @FXML
     void craiovaVoid(ActionEvent event) {
-         this.count();
+        this.count();
+        this.setCity("Craiova");
     }
 
     @FXML
     void dobretaVoid(ActionEvent event) {
         this.count();
+        this.setCity("Dobreta");
     }
 
     @FXML
     void eforieVoid(ActionEvent event) {
         this.count();
+        this.setCity("Eforie");
     }
 
     @FXML
     void fagarasVoid(ActionEvent event) {
         this.count();
+        this.setCity("Fagaras");
     }
 
     @FXML
     void giurgiuVoid(ActionEvent event) {
         this.count();
+        this.setCity("Giurgiu");
     }
 
     @FXML
     void handleButtonAction(ActionEvent event) {
+        ArrayList<Vertice> caminho = new ArrayList();
+        switch(this.tBusca){
+            
+            case 1:
+                ArrayList<Vertice> cam = ProjectIA.buscaLargura(ProjectIA.g, ProjectIA.getVertice(cityOne), ProjectIA.getVertice(cityTwo), caminho);
+                System.out.println(this.Way(cam));
+                break;
+             case 2:
+                ArrayList<Vertice> cam2 = ProjectIA.buscaProfundidade(ProjectIA.g, ProjectIA.getVertice(cityOne), ProjectIA.getVertice(cityTwo), caminho);
+                System.out.println(this.Way(cam2));
+                break;
+             case 3:
+                 //ProjectIA.aStart(g, vInicial, vFinal, path);
+                break;
+             default:
+                 System.out.println("Erro");
+        }
+                
+        
         this.cityClick=0;
         this.tBusca=0;
         this.calcular.setDisable(false);
@@ -218,66 +295,79 @@ public class FXMLDocumentController {
     @FXML
     void hirsovaVoid(ActionEvent event) {
         this.count();
+        this.setCity("Hirsova");
     }
 
     @FXML
     void lasiVoid(ActionEvent event) {
         this.count();
+        this.setCity("Lasi");
     }
 
     @FXML
     void lugojVoid(ActionEvent event) {
         this.count();
+        this.setCity("Lugoj");
     }
 
     @FXML
     void mehadiaVoid(ActionEvent event) {
         this.count();
+        this.setCity("Mehadia");
     }
 
     @FXML
     void neamtVoid(ActionEvent event) {
         this.count();
+        this.setCity("Neamt");
     }
 
     @FXML
     void oradeaVoid(ActionEvent event) {
         this.count();
+        this.setCity("Oradea");
     }
 
     @FXML
     void pitestiVoid(ActionEvent event) {
         this.count();
+        this.setCity("Pitesti");
     }
 
     @FXML
     void rimnicuVilceaVoid(ActionEvent event) {
         this.count();
+        this.setCity("Rimnicu-Vilcea");
     }
 
     @FXML
     void sibiuVoid(ActionEvent event) {
         this.count();
+        this.setCity("Sibiu");
     }
 
     @FXML
     void timisoaraVoid(ActionEvent event) {
         this.count();
+        this.setCity("Timisoara");
     }
 
     @FXML
     void urziceniVoid(ActionEvent event) {
         this.count();
+        this.setCity("Urziceni");
     }
 
     @FXML
     void vasluiVoid(ActionEvent event) {
         this.count();
+        this.setCity("Vaslui");
     }
 
     @FXML
     void zerindVoid(ActionEvent event) {
         this.count();
+        this.setCity("Zerind");
     }
 
 }
