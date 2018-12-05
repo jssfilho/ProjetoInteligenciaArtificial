@@ -111,18 +111,23 @@ public class FXMLDocumentController {
     public void getCaminho(){
         ArrayList<Vertice> caminho = new ArrayList();
         ArrayList<Vertice> caminho2 = new ArrayList();
+        ArrayList<Vertice> path = new ArrayList();
         switch(this.tBusca){
             
             case 1:
                 ArrayList<Vertice> cam = ProjectIA.buscaLargura(ProjectIA.g, ProjectIA.getVertice(this.cityOne), ProjectIA.getVertice(this.cityTwo), caminho);
-                System.out.println(this.Way(cam));
+                this.saida.setText(this.Way(cam));
                 break;
              case 2:
                ArrayList<Vertice> cam2 = ProjectIA.buscaProfundidade(ProjectIA.g, ProjectIA.getVertice(this.cityOne), ProjectIA.getVertice(this.cityTwo), caminho2);
-                System.out.println(this.Way(cam2));
+                this.saida.setText(this.Way(cam2));
                 break;
              case 3:
-                 //ProjectIA.aStart(g, vInicial, vFinal, path);
+                ArrayList<Vertice> cam3 = ProjectIA.aStart(ProjectIA.g, ProjectIA.getVertice(this.cityOne), ProjectIA.getVertice(this.cityTwo), path);
+                String n = "";
+                for(Vertice v: cam3){
+                    n+=v.nome+"-";
+                }
                 break;
              default:
                  System.out.println("Erro");
@@ -131,8 +136,11 @@ public class FXMLDocumentController {
     
     public String Way(ArrayList<Vertice> cam){
         String n = "";
-        for(Vertice v: cam){
-            n+=v.nome+"-";
+        int cont = cam.size()-2;
+        ArrayList<Vertice> lista = new ArrayList();
+        lista = ProjectIA.getBestWay(lista, cam, cam.get(cont+1), ProjectIA.g, cont);
+        for(int i=lista.size()-1;i>=0;i--){
+            n+=lista.get(i).nome+"-";
         }
         return n;
         
