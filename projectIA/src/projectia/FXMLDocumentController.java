@@ -126,7 +126,10 @@ public class FXMLDocumentController {
                 ArrayList<Vertice> cam3 = ProjectIA.aStart(ProjectIA.g, ProjectIA.getVertice(this.cityOne), ProjectIA.getVertice(this.cityTwo), path);
                 String n = "";
                 for(Vertice v: cam3){
-                    n+=v.nome+"-";
+                    if(v.nome.equals(this.cityTwo))
+                        n+=v.nome;
+                    else
+                        n+=v.nome+"->";
                 }
                 this.saida.setText(n);
                 break;
@@ -141,14 +144,17 @@ public class FXMLDocumentController {
         ArrayList<Vertice> lista = new ArrayList();
         lista = ProjectIA.getBestWay(lista, cam, cam.get(cont+1), ProjectIA.g, cont);
         for(int i=lista.size()-1;i>=0;i--){
-            n+=lista.get(i).nome+"-";
+            if(i!=0)
+                n+=lista.get(i).nome+"->";
+            else
+                n+=lista.get(i).nome;
         }
         return n;
         
     }
     
     public void setCity(String city){
-        System.out.println("setCity"+city);
+        
         if(this.cityClick==1){
            this.cityOne=city;
         }else if(this.cityClick==2){
@@ -158,7 +164,7 @@ public class FXMLDocumentController {
     
     public void count(){
         this.cityClick+=1;
-        System.out.println("count"+this.cityClick);
+        
         if(this.cityClick>=2){
             if(this.tBusca!=0){
                 this.calcular.setDisable(false);

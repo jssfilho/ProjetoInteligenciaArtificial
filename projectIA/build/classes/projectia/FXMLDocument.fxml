@@ -6,10 +6,10 @@
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" prefHeight="543.0" prefWidth="724.0" styleClass="AnchorPane" stylesheets="@fxmlCSS.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="projectia.FXMLDocumentController">
+<AnchorPane id="AnchorPane" prefHeight="562.0" prefWidth="728.0" styleClass="AnchorPane" stylesheets="@fxmlCSS.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="projectia.FXMLDocumentController">
     <children>
         <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
-      <Label fx:id="saida" layoutX="22.0" layoutY="499.0" prefHeight="26.0" prefWidth="544.0" text="Sequecia de Cidades" />
+      <Label fx:id="saida" layoutX="26.0" layoutY="491.0" prefHeight="62.0" prefWidth="585.0" text="Sequecia de Cidades" />
       <Button fx:id="calcular" disable="true" layoutX="624.0" layoutY="491.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Calcular" />
       <Button fx:id="oradea" layoutX="99.0" layoutY="24.0" mnemonicParsing="false" onAction="#oradeaVoid" prefHeight="16.0" prefWidth="18.0" />
       <Button fx:id="arad" layoutX="49.0" layoutY="123.0" mnemonicParsing="false" onAction="#aradVoid" prefHeight="26.0" prefWidth="0.0" />
